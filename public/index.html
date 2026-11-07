@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShopEase | Online Shopping Cart</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f7f7ff;
+            color: #26375b;
+        }
+
+        /* NAVBAR */
+
+        header {
+            background: rgba(255,255,255,0.95);
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 18px rgba(100,100,150,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 29px;
+            font-weight: 800;
+            color: #5265bd;
+        }
+
+        .logo span {
+            color: #a17be8;
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #344568;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #9870df;
+        }
+
+        /* HERO SECTION */
+
+        .hero {
+            min-height: 440px;
+            padding: 55px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 35px;
+            background: linear-gradient(
+                115deg,
+                #e5e9ff,
+                #f6e9fa,
+                #e1f2ff
+            );
+            overflow: hidden;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-content .welcome {
+            color: #8b78c9;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(48px, 6vw, 78px);
+            color: #394b9a;
+            font-weight: 400;
+            margin-bottom: 12px;
+        }
+
+        .hero-content h2 {
+            font-size: clamp(23px, 3vw, 32px);
+            margin-bottom: 15px;
+            color: #273c70;
+        }
+
+        .hero-content p {
+            font-size: 15px;
+            line-height: 1.9;
+            color: #65718d;
+            max-width: 550px;
+            margin-bottom: 25px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: linear-gradient(90deg, #637fe0, #a276df);
+            color: white;
+            padding: 13px 28px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 7px 18px rgba(115,100,200,0.25);
+            transition: 0.3s;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 22px rgba(115,100,200,0.3);
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 540px;
+            height: 330px;
+            object-fit: contain;
+            border-radius: 25px;
+        }
+
+        /* MANAGEMENT SECTION */
+
+        .management {
+            padding: 55px 6%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-heading h2 {
+            font-size: 30px;
+            color: #394b83;
+            margin-bottom: 10px;
+        }
+
+        .section-heading p {
+            font-size: 14px;
+            color: #8993a9;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+
+        .card {
+            text-align: center;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            text-decoration: none;
+            color: #344568;
+            box-shadow: 0 7px 25px rgba(80,90,130,0.09);
+            transition: 0.3s;
+            border: 1px solid #eeeeF8;
+        }
+
+        .card:hover {
+            transform: translateY(-9px);
+            box-shadow: 0 14px 30px rgba(80,90,130,0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 175px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px 14px 24px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #8791a7;
+            font-size: 13px;
+            line-height: 1.7;
+            min-height: 44px;
+            margin-bottom: 16px;
+        }
+
+        .card-btn {
+            display: inline-block;
+            padding: 10px 22px;
+            border-radius: 25px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .blue { background: #568de0; }
+        .green { background: #50b995; }
+        .orange { background: #f1a15e; }
+        .purple { background: #9470df; }
+
+        /* INFORMATION SECTION */
+
+        .info-section {
+            margin: 10px 6% 55px;
+            padding: 35px;
+            background: #eeeaff;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .info-section h2 {
+            color: #5265a1;
+            font-size: 23px;
+            margin-bottom: 12px;
+        }
+
+        .info-section p {
+            color: #74809b;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #273c70;
+            color: white;
+            padding: 28px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        footer h3 {
+            font-size: 21px;
+        }
+
+        footer p {
+            font-size: 12px;
+            color: #d2d9f0;
+        }
+
+        .social a {
+            color: white;
+            text-decoration: none;
+            margin-left: 14px;
+            font-size: 14px;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media(max-width: 950px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-image img {
+                height: 270px;
+            }
+        }
+
+        @media(max-width: 600px) {
+            header {
+                justify-content: center;
+                gap: 15px;
+            }
+
+            nav {
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 40px 6%;
+            }
+
+            .hero-image img {
+                height: 220px;
+            }
+
+            footer {
+                justify-content: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header>
+
+        <div class="logo">
+            🛒 Shop<span>Ease</span>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="user.html">Users</a>
+            <a href="products.html">Products</a>
+            <a href="cart.html">Cart</a>
+            <a href="orders.html">Orders</a>
+        </nav>
+
+    </header>
+
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="welcome">
+                Welcome to ShopEase
+            </div>
+
+            <h1>Abbavaram Srividya</h1>
+
+            <h2>Online Shopping Cart Management</h2>
+
+            <p>
+                Manage users, products, shopping carts and customer
+                orders from one place. Enjoy a simple and organized
+                shopping management experience with ShopEase.
+            </p>
+
+            <a href="#management" class="hero-btn">
+                Explore Sections &nbsp; →
+            </a>
+
+        </div>
+
+
+        <div class="hero-image">
+
+            <img
+                src="images/hero.jpg"
+                alt="Online Shopping Cart Illustration">
+
+        </div>
+
+    </section>
+
+
+    <!-- MANAGEMENT CARDS -->
+
+    <section class="management" id="management">
+
+        <div class="section-heading">
+
+            <h2>Explore Management Sections</h2>
+
+            <p>
+                Select a section to manage your shopping cart records.
+            </p>
+
+        </div>
+
+
+        <div class="cards">
+
+            <!-- USERS -->
+
+            <a href="user.html" class="card">
+
+                <img
+                    src="images/hero1.jpg"
+                    alt="Users Management">
+
+                <div class="card-content">
+
+                    <h3>Users Management</h3>
+
+                    <p>
+                        Add, view, update and delete customer details.
+                    </p>
+
+                    <span class="card-btn blue">
+                        Go to Users →
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- PRODUCTS -->
+
+            <a href="products.html" class="card">
+
+                <img
+                    src="images/products.jpg"
+                    alt="Products Management">
+
+                <div class="card-content">
+
+                    <h3>Products Management</h3>
+
+                    <p>
+                        Manage product information, prices and stock.
+                    </p>
+
+                    <span class="card-btn green">
+                        Go to Products →
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- CART -->
+
+            <a href="cart.html" class="card">
+
+                <img
+                    src="images/cart.jpg"
+                    alt="Shopping Cart">
+
+                <div class="card-content">
+
+                    <h3>Shopping Cart</h3>
+
+                    <p>
+                        Add products and manage customer cart items.
+                    </p>
+
+                    <span class="card-btn orange">
+                        Go to Cart →
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- ORDERS -->
+
+            <a href="orders.html" class="card">
+
+                <img
+                    src="images/order.jpg"
+                    alt="Orders Management">
+
+                <div class="card-content">
+
+                    <h3>Orders Management</h3>
+
+                    <p>
+                        View and manage customer orders and status.
+                    </p>
+
+                    <span class="card-btn purple">
+                        Go to Orders →
+                    </span>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- INFORMATION SECTION -->
+
+    <section class="info-section">
+
+        <h2>Everything in One Place!</h2>
+
+        <p>
+            ShopEase provides an easy way to manage customer details,
+            products, shopping carts and orders using individual
+            Create, Read, Update and Delete operations.
+        </p>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h3>🛒 ShopEase</h3>
+
+        <p>
+            © 2026 ShopEase - Online Shopping Cart. All Rights Reserved.
+        </p>
+
+        <div class="social">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+        </div>
+
+    </footer>
+
+</body>
+</html>

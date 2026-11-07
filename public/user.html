@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Users | ShopEase</title><link rel="stylesheet" href="style.css"></head>
+<body><header><h1>👤 Users Management</h1><nav><a href="index.html">Home</a><a href="user.html">Users</a><a href="products.html">Products</a><a href="cart.html">Cart</a><a href="orders.html">Orders</a></nav></header>
+<main class="container"><section class="panel"><h2 id="formTitle">Add User</h2><form id="userForm"><input id="name" placeholder="Full name" required><input id="email" type="email" placeholder="Email" required><input id="phone" placeholder="Phone"><input id="password" type="password" placeholder="Password" required><button id="saveBtn">Add User</button><button type="button" class="secondary" onclick="resetForm()">Clear</button></form><div id="message"></div></section><section class="panel"><h2>Users List</h2><div class="table-wrap"><table><thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Actions</th></tr></thead><tbody id="rows"></tbody></table></div></section></main>
+<script>
+let editingId=null, cache=[];
+const $=id=>document.getElementById(id);
+async function load(){const r=await fetch('/api/users');cache=await r.json();$('rows').innerHTML=cache.map(u=>`<tr><td>${u.user_id}</td><td>${u.name}</td><td>${u.email}</td><td>${u.phone||''}</td><td><div class="actions"><button onclick="editUser(${u.user_id})">Edit</button><button class="danger" onclick="removeUser(${u.user_id})">Delete</button></div></td></tr>`).join('')}
+$('userForm').onsubmit=async e=>{e.preventDefault();const data={name:$('name').value,email:$('email').value,phone:$('phone').value,password:$('password').value};const url=editingId?'/api/users/'+editingId:'/api/users';const r=await fetch(url,{method:editingId?'PUT':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});const out=await r.json();$('message').textContent=out.error||'User saved successfully';if(!out.error){resetForm();load()}};
+function editUser(id){const u=cache.find(x=>x.user_id===id);editingId=id;$('name').value=u.name;$('email').value=u.email;$('phone').value=u.phone||'';$('password').value='';$('password').required=false;$('formTitle').textContent='Update User';$('saveBtn').textContent='Update User'}
+async function removeUser(id){if(confirm('Delete this user?')){const r=await fetch('/api/users/'+id,{method:'DELETE'});const x=await r.json();$('message').textContent=x.error||'User deleted';load()}}
+function resetForm(){editingId=null;$('userForm').reset();$('password').required=true;$('formTitle').textContent='Add User';$('saveBtn').textContent='Add User'}
+load();
+</script></body></html>
